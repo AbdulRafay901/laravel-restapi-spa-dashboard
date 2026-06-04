@@ -27,7 +27,14 @@ class ApiController extends Controller
     }
 
     function index(){
+
        $data = $this->StudentService->read();
+
+        if(!$data){
+            return response()->json([
+
+            ],500);
+        }
        return response()->json($data);
     }
 

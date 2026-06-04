@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function(){
 });
      
 Route::middleware('auth:sanctum')->group(function(){
+    
 Route::apiResource('students', ApiController::class)->only(['index']);
 
    Route::post('logout', [AuthController::class, 'logout']);

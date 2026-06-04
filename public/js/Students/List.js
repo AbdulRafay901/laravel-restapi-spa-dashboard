@@ -2,12 +2,10 @@ let page = 1;
 
 function setpage(p){
     page = p;
-    console.log(page)
 }
 
 function getpage(){
     return page;
-    console.log(page)
 }
 
 console.log(page)
@@ -16,31 +14,21 @@ async function List(){
     
       try {
 
-        await fetch("https://web-production-c718e.up.railway.app//csrf-cookie", {
-            credentials: 'include'
-        });
-      
-    const res = await fetch(`https://web-production-c718e.up.railway.app//students?page=${page}`,
-        {
-            method: "GET",
-            credentials: 'include',
-            headers: {'Content-Type': 'application/json',
-            },
-        })  
-        
-        const data = await res.json();
-        
-        r(data)
+     
+        const res = await api.get(`/api/students?page=${page}`);
 
-        console.log(data);
+        console.log(res.data);
+        r(res.data);
+
+        return res.data;
         
-        return data
         
       } catch (error) {
-            console.log(error)
+            console.log(error);
       }
 
 }
+
 
 
 // DOMPurify Use for protect XSS prevention 

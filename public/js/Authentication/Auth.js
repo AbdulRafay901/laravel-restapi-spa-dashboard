@@ -8,7 +8,8 @@ async function TokenCheck(){
 
         if(res.data.status){
             localStorage.setItem("loginToken", 'true');
-        }   
+        } 
+
         
     } catch (error) {
         console.log(error.response)
