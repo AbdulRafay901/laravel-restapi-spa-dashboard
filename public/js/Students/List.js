@@ -16,7 +16,7 @@ async function List(){
     
       try {
 
-        await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
+        await fetch("https://web-production-c718e.up.railway.app//csrf-cookie", {
             credentials: 'include'
         });
       

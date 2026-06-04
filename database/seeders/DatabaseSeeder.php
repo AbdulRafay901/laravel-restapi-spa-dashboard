@@ -12,12 +12,12 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // ✅ Roles seed karo (production ke liye zaroori)
+        // ✅ Roles seed (production ke liye zaroori)
         $this->call([
             RoleSeeder::class,
         ]);
 
-        // ✅ Test user sirf local pe banao
+        // ✅ Test user sirf local pe 
         if (app()->environment('local')) {
             User::firstOrCreate(
                 ['email' => 'test@example.com'],
