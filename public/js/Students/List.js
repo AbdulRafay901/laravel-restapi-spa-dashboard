@@ -20,7 +20,7 @@ async function List(){
             credentials: 'include'
         });
       
-    const res = await fetch(`http://127.0.0.1:8002/api/students?page=${page}`,
+    const res = await fetch(`https://web-production-c718e.up.railway.app//students?page=${page}`,
         {
             method: "GET",
             credentials: 'include',
