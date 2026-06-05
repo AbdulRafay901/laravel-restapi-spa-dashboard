@@ -15,5 +15,11 @@ class RoleSeeder extends Seeder
     {
         Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
         Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+
+        $admin = User::where('Email', 'abdulrafay700000@gmail.com')->first();
+        
+        if ($admin) {
+            $admin->assignRole('admin');
+        }
     }
 }
