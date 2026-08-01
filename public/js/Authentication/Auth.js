@@ -1,26 +1,26 @@
 
 
 
-async function TokenCheck(){
-    try {
+// async function TokenCheck(){
+//     try {
 
-        const res = await api.get("/api/me/");
+//         const res = await api.get("/api/me/");
 
-        if(res.data.status){
-            localStorage.setItem("loginToken", 'true');
-        } 
+//         if(res.data.status){
+//             localStorage.setItem("loginToken", 'true');
+//         } 
 
         
-    } catch (error) {
-        console.log(error.response)
-        localStorage.removeItem('loginToken');
-    } 
+//     } catch (error) {
+//         console.log(error.response)
+//         localStorage.removeItem('loginToken');
+//     } 
 
-}
+// }
 
-TokenCheck()
+// TokenCheck()
 
-console.log(localStorage.getItem('loginToken'))
+// console.log(localStorage.getItem('loginToken'))
 
 
 

@@ -118,7 +118,8 @@ function otpUpdate($id,$type){
 }
 
 function login($Email,$Password){
-    $user = User::where('Email', $Email)->first();
+
+    $user = User::where('email', $Email)->first();
 
     if(!$user){
         return ["status" => false, "message" => "user not found"];
@@ -130,19 +131,20 @@ function login($Email,$Password){
         return ["status" => false,  "message" => "Please Verify Your Email"];
     }
 
-    Auth::login($user);
+    $token = $user->createToken("TaskManager")->plainTextToken;
 
-    return ["status" => true, 'user' => $user, 'role' => $user->getRoleNames()[0]];
-
+    return ["status" => true, 'user' => $user, 'role' => $user->getRoleNames()[0], "token" => $token];
 
 }
 
 function logout($request){
-    auth('web')->logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
 
-    return ["success" => true];
+    $request->user()->currentAccessToken()->delete();
+
+    return [
+        "success" => true
+    ];
+    
 }
 
 

@@ -17,7 +17,7 @@ console.log(role)
 
 
     if (path === "/") {
-        if(localStorage.getItem('loginToken') === 'true'){
+        if(localStorage.getItem('token')){
             navigate('/index');
         }
         else{
@@ -68,7 +68,7 @@ console.log(role)
 
         if(path === '/index'){
 
-        if(localStorage.getItem('loginToken') === 'true'){
+        if(localStorage.getItem('token')){
             app.innerHTML = index();
             await List()
         }else{

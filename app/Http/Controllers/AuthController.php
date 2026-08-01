@@ -63,8 +63,6 @@ class AuthController extends Controller
                     'data' => $response["message"]
                 ], 400);
             }
-
-            $request->session()->regenerate();
         
             return response()->json([
                 'status' => true,

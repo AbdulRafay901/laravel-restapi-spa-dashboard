@@ -105,11 +105,10 @@ document.addEventListener("submit", async function(e) {
 
             if (res.data.status) {
                 
-                localStorage.setItem("user", JSON.stringify(res.data.user));
+                localStorage.setItem('token', res.data.token);
                 localStorage.setItem('role', res.data.role);
                 
-                await TokenCheck();
-
+        
                 navigate('/');
                 
             }
