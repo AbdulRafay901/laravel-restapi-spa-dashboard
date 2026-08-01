@@ -96,7 +96,6 @@ document.addEventListener("submit", async function(e) {
         try {
 
             // CSRF cookie (Sanctum)
-            await api.get("/sanctum/csrf-cookie");
 
             const res = await api.post("/api/login", {
                 Email,
@@ -108,7 +107,6 @@ document.addEventListener("submit", async function(e) {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('role', res.data.role);
                 
-        
                 navigate('/');
                 
             }

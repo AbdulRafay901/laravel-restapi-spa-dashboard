@@ -10,22 +10,28 @@ function getpage(){
 
 console.log(page)
 
-async function List(){
-    
-      try {
+async function List() {
 
-     
-        const res = await api.get(`/api/students?page=${page}`);
+    try {
+
+        const token = localStorage.getItem('token');
+
+        console.log(token)
+
+        const res = await api.get(`/api/students?page=${page}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
         console.log(res.data);
         r(res.data);
 
         return res.data;
-        
-        
-      } catch (error) {
-            console.log(error);
-      }
+
+    } catch (error) {
+        console.log(error.response);
+    }
 
 }
 

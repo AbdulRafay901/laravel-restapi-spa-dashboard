@@ -31,13 +31,6 @@ Route::apiResource('students', ApiController::class)->only(['index']);
 
    Route::post('logout', [AuthController::class, 'logout']);
 
-   Route::get('me', function(Request $request){
-    return response()->json([
-        'status' => true,
-        'user' => $request->user()
-    ]);
-});
-
 })
 
 

@@ -17,7 +17,10 @@ console.log(role)
 
 
     if (path === "/") {
-        if(localStorage.getItem('token')){
+
+        const isLoggedIn = await TokenCheck()
+
+        if(isLoggedIn){
             navigate('/index');
         }
         else{
@@ -26,7 +29,10 @@ console.log(role)
     }
 
         if (path === "/register") {
-            if(localStorage.getItem('loginToken') === 'true'){
+
+            const isLoggedIn = await TokenCheck();
+
+            if(isLoggedIn){
                 navigate('/index');
             }
             else{
@@ -34,7 +40,10 @@ console.log(role)
             }
         }
         if (path === "/code") {
-             if(localStorage.getItem('loginToken') === 'true'){
+
+            const isLoggedIn = await TokenCheck();
+
+             if(isLoggedIn){
                 navigate('/index');
             }
             else{
@@ -42,7 +51,10 @@ console.log(role)
             }
         }
         if(path === '/forgetPassword'){
-             if(localStorage.getItem('loginToken') === 'true'){
+
+            const isLoggedIn = await TokenCheck();
+
+             if(isLoggedIn){
                 navigate('/index');
             }
             else{
@@ -51,13 +63,15 @@ console.log(role)
         }
         if(path.startsWith('/changePassword/')){
 
-            if(localStorage.getItem('loginToken') === 'true'){
+            const isLoggedIn = await TokenCheck();
+
+            if(isLoggedIn){
                 navigate('/index');
             }
             else{
                 let split = path.split('/')[2];
                  if(split === ""){
-                    console.log("kahli he")
+                    console.log("Something Wrong")
                  }else{
                     app.innerHTML = changePassword();
                  }
@@ -66,19 +80,28 @@ console.log(role)
         
         }
 
-        if(path === '/index'){
+        if (path === "/index") {
 
-        if(localStorage.getItem('token')){
-            app.innerHTML = index();
-            await List()
-        }else{
-            app.innerHTML = loginForm()
-        }
+        const isLoggedIn = await TokenCheck();
 
-        }
+        if (isLoggedIn) {
+
+        app.innerHTML = index();
+        await List();
+
+    } else {
+
+        app.innerHTML = loginForm();
+
+    }
+
+}
 
         if(path === '/addUser'){
-             if(localStorage.getItem('loginToken') === 'true'){
+
+            const isLoggedIn = await TokenCheck();
+
+             if(isLoggedIn){
                 if(role === 'user'){
                     navigate('/')
                      
@@ -95,7 +118,9 @@ console.log(role)
 
         if(path.startsWith('/Edit')){
 
-            if(localStorage.getItem('loginToken') === 'true'){
+            const isLoggedIn = await TokenCheck();
+
+            if(isLoggedIn){
                 user = path.split('/')[2];
 
                 if(user === ""){

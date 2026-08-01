@@ -31,10 +31,12 @@ class ApiController extends Controller
        $data = $this->StudentService->read();
 
         if(!$data){
-            return response()->json([
 
+            return response()->json([
             ],500);
+            
         }
+
        return response()->json($data);
     }
 

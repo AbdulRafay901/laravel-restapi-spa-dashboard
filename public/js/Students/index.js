@@ -58,12 +58,6 @@ function index(){
 // import {List, setpage, getpage} from './List.js';
 
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
-}
-
 document.addEventListener("click", (e) => {
       if(e.target.id === "addUser"){
             if(role === "user"){
@@ -211,47 +205,46 @@ document.addEventListener("click", async function(e){
 
 
 
-    document.addEventListener("click", async function(e){
+    document.addEventListener("click", async function (e) {
 
-    if(e.target.classList.contains('logout')){
+    if (e.target.classList.contains("logout")) {
 
-      try {
+        try {
 
-        await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-            credentials: 'include'
-        });
+            const token = localStorage.getItem("token");
 
-        const csrfToken = getCookie('XSRF-TOKEN');
+            const res = await fetch("http://127.0.0.1:8000/api/logout", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
 
-         const res = await fetch('http://127.0.0.1:8002/api/logout',{
-                  method: 'POST',
-                  credentials: 'include',
-                  headers:  {
-                         "Accept": "application/json",
-                "Content-Type": "application/json",
-                "X-XSRF-TOKEN": csrfToken
-                  }
+            const data = await res.json();
+
+            if (res.ok) {
+
+                localStorage.removeItem("token");
+
+                navigate("/");
+
+            } else {
+
+                console.log(data);
 
             }
-         )
 
-         const data = await res.json()
+        } catch (error) {
 
-         if(res.ok){
-
-            localStorage.removeItem('loginToken');
-            TokenCheck()
-
-
-            navigate('/')
-         }
-
-         } catch (error) {
-            console.log(error)
-      }
+            console.log(error);
 
         }
-    })
+
+    }
+
+});
 
 
     function roleError(){
