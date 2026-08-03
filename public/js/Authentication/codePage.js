@@ -63,9 +63,14 @@ document.addEventListener("submit", async function(e){
     else{
 
         try {
+
+        const token = localStorage.getItem('token');
             
         const res = await api.post("/api/otpCheck",
             {
+               headers: {'Content-Type': 'application/json',
+                   Authorization: `Bearer ${token}`
+               },
                otp,
                type
             })

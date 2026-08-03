@@ -41,7 +41,6 @@ document.addEventListener("submit", async (e) => {
 
       const token = window.location.pathname.split('token=')[1];
 
-console.log(token)
 
     if(e.target && e.target.id === "changePassword"){
 
@@ -73,7 +72,12 @@ console.log(token)
 
         try {
 
+            const token = localStorage.getItem('token');
+
              const res = await api.post('/api/changePassword',{
+                 headers: {'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                 },
                  token,
                  Password
              })

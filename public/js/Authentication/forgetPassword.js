@@ -52,7 +52,12 @@ document.addEventListener('submit', async (e) => {
 
         try {
 
+            const token = localStorage.getItem('token');
+
             const res = await api.post('/api/forgetPassword',{
+                headers: {'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
                 Email
             })
 
