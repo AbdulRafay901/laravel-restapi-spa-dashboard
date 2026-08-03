@@ -81,18 +81,13 @@ document.addEventListener("click", async function(e){
 
           try {
 
-            await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-               credentials: 'include'
-            });
+           const token = localStorage.getItem('token');
 
-           const csrfToken = getCookie('XSRF-TOKEN');
-            
-           const res = await fetch(`http://127.0.0.1:8002/api/students/${id}`,
+           const res = await fetch(`http://127.0.0.1:8000/api/students/${id}`,
             {
                   method: 'DELETE',
-                  credentials: 'include',
-                  headers: {'Content-Type': 'application/json', 'Accept': 'application/json',
-                        "X-XSRF-TOKEN": csrfToken
+                  headers: {
+                        Authorization: `Bearer ${token}`
                   },
                   
 
@@ -117,9 +112,7 @@ document.addEventListener("click",  async function(e){
       if(e.target.classList.contains("Edit")){
 
             if(role === 'user'){
-
                   roleError()
-                 
             }else{
             const id = e.target.getAttribute("id")      
                 navigate(`/Edit/user=${id}`);
@@ -137,29 +130,22 @@ document.addEventListener("click", async function(e){
 
          const check = Array.from(checkboxs).map(checkbox => checkbox.value);
 
-         console.log(check);
-
          try {
 
-             await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-               credentials: 'include'
-            });
+             
 
-           const csrfToken = getCookie('XSRF-TOKEN');
+           const token = localStorage.getItem('token');
 
-      
-         const res = await fetch(`http://127.0.0.1:8002/api/students/Checkbox`,
+         const res = await fetch(`http://127.0.0.1:8000/api/students/Checkbox`,
             {
                   method: "delete",
-                  credentials: 'include',
                   headers: {'Content-Type': 'application/json', 'Accept':'application/json',
-                        "X-XSRF-TOKEN": csrfToken
+                        Authorization: `Bearer ${token}`
                   },
                   body: JSON.stringify({check})
             })
          const response = await res.json()
          
-         console.log(response);
          List()
          } catch (error) {
             console.log(error)

@@ -43,12 +43,8 @@ function Edit(){
 </section>`
 }
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
-}
 
+    const token = localStorage.getItem('token');
 
 
     async function Load() {
@@ -59,20 +55,11 @@ function getCookie(name) {
 
          
      try {
-
-        await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-               credentials: 'include'
-            });
-
-        const csrfToken = getCookie('XSRF-TOKEN');
-        
-     const res = await fetch(`http://127.0.0.1:8002/api/students/${id}`,
+    
+     const res = await fetch(`http://127.0.0.1:8000/api/students/${id}`,
         {
             method: "GET",
-            credentials: 'include',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json',
-                "X-XSRF-TOKEN": csrfToken
-            },
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', Authorization: `Bearer ${token}`},
         })
 
         const data = await res.json();
@@ -107,18 +94,12 @@ function getCookie(name) {
     }else{
         try {
 
-            await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-               credentials: 'include'
-            });
-
-           const csrfToken = getCookie('XSRF-TOKEN');
-            
-           const res = await fetch(`http://127.0.0.1:8002/api/students/${id}`,
+                        
+           const res = await fetch(`http://127.0.0.1:8000/api/students/${id}`,
             {
                 method: "PUT",
-                credentials: 'include',
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json',
-                    "X-XSRF-TOKEN": csrfToken
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({Name,Email,Address,Phone})
             })

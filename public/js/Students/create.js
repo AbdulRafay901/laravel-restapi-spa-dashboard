@@ -40,12 +40,6 @@ function addUser(){
 </section>`
 }
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
-}
-
 document.addEventListener("submit", async function(e) {
 
     if(e.target && e.target.id === "addUser"){
@@ -68,18 +62,13 @@ document.addEventListener("submit", async function(e) {
     }else{
         try {
 
-            await fetch("http://127.0.0.1:8002/sanctum/csrf-cookie", {
-               credentials: 'include'
-            });
-
-           const csrfToken = getCookie('XSRF-TOKEN');
+            const token = localStorage.getItem('token');
             
-          const res = await fetch('http://127.0.0.1:8002/api/students',
+          const res = await fetch('http://127.0.0.1:8000/api/students',
              {
                 method:"POST",
-                credentials: 'include',
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json',
-                    "X-XSRF-TOKEN": csrfToken
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({Name, Email, Address, Phone})
              })
