@@ -1,5 +1,10 @@
 
-let role = localStorage.getItem('role');
+
+let role = null;
+
+function roles(){
+    role = localStorage.getItem('role');
+}
 
 let errorBox = document.querySelector(".error");
 
@@ -13,7 +18,6 @@ console.log(role)
   async function render(path) {
         console.log("CURRENT PATH:", path);
         const app = document.getElementById("app");
-
 
 
     if (path === "/") {
